@@ -22,7 +22,7 @@ React 19 + Vite + TypeScript + MUI. De backend staat in een aparte repo: `../Chu
 
 ## Conventies bijhouden
 
-Kom je in een gesprek iets tegen dat ook voor later werk geldt — een correctie van mij, een uitgesproken voorkeur, een patroon dat we afspreken — leg het dan meteen zelf vast, in dezelfde beurt, zonder te vragen:
+Kom je in een gesprek iets tegen dat ook voor later werk geldt — een correctie van mij, een uitgesproken voorkeur, een patroon dat we afspreken, of informatie die je moet onthouden — leg het dan meteen zelf vast, in dezelfde beurt, zonder te vragen:
 
 - Hoort het bij een bestaand onderwerp? Werk die file in `.claude/conventions/` bij (liever een bestaande regel aanscherpen dan een nieuwe toevoegen).
 - Past het nergens? Zet er een korte regel over in dit bestand.
