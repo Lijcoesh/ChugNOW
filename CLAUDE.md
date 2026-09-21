@@ -1,4 +1,4 @@
-# lucadev
+# ChugNOW
 
 React 19 + Vite + TypeScript + MUI.
 
