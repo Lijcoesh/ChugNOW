@@ -522,6 +522,8 @@ erDiagram
 | `IsActive` | | uitzetten zonder te verwijderen |
 | `CreatedOn` | | |
 
+**Seed:** voorlopig bestaat er één challenge: `Title` "CHUG NOW!", `Type` `Chug`, `Description` "CHUG NOW! 🍺 Jij bent aan de beurt.". Er komen later meer challenges bij (packs, eigen challenges).
+
 #### `Turn` *(één "CHUG NOW"-notificatie voor één speler)*
 
 | Veld | Sleutel / type | Opmerking |
@@ -534,6 +536,8 @@ erDiagram
 | `AssignedOn` | | |
 | `ExpiresOn` | | the server marks the turn Expired after this moment |
 | `CompletedOn?` | | |
+
+**Regels:** bij elke aangebroken `NextTurnAt` kiest de scheduler een **volledig willekeurige** actieve speler (dezelfde speler kan dus twee keer achter elkaar). Een beurt duurt `ResponseTimeSeconds` en wordt daarna `Expired`. De speler kan de beurt ook overslaan (`Skipped`). `Completed` volgt zodra de video-upload er is.
 
 ---
 
@@ -613,7 +617,7 @@ De backend wordt geschreven in **C# (.NET)**. Het datamodel uit [hoofdstuk 13](#
 |---|---|
 | Hosting | Waarschijnlijk een eigen gehuurde VPS bij TransIP; nog niet definitief |
 | Client voor pushmeldingen en camera | Web, PWA of native; bepaalt de push-aanpak (APNs / FCM) |
-| Scheduler | Voor de MVP volstaat het pollen van `GameSession.NextTurnAt` (met `FOR UPDATE SKIP LOCKED` in Postgres); een job queue is pas later nodig |
+| Scheduler | Gebouwd: pollt elke 5 s op `GameSession.NextTurnAt` (met `FOR UPDATE SKIP LOCKED` in Postgres), sluit verlopen beurten af en beëindigt sessies van verlopen groepen. Een job queue is pas later nodig. Nog niet gedaan: opruimen van verlopen groepen en refresh tokens |
 | Videoopslag | Object storage met signed URLs (zie `Video.StorageKey`), zodat video's de schijf van de VPS niet vullen; aanbieder nog te kiezen |
 | Back-ups | Dagelijkse dump of WAL-archivering van Postgres, opgeslagen buiten de VPS |
 | Verval van permanente groepen | Tijdelijke groepen verlopen al na 24 uur; permanente hebben nu geen vervaldatum. Idee voor later, zodra het project verder is: ook permanente groepen laten verlopen (bijv. bij inactiviteit, met een nieuw veld als `LastActivityOn`) en dat koppelen aan het premium-abonnement (bijv. gratis groepen verlopen, premium-groepen blijven bestaan). Verlopen groepen moeten daarnaast fysiek worden opgeruimd door een job bij de scheduler |
