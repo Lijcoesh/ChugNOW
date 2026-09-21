@@ -469,7 +469,7 @@ erDiagram
 | `CreatedOn` | | |
 | `UpdatedOn` | | |
 
-**Regels:** maximaal 12 actieve leden (gratis versie), een tijdelijke groep verloopt 24 uur na aanmaken (`ExpiresOn`), de join-code heeft 6 tekens zonder `0/O/1/I/L`. Een enige eigenaar kan een groep met andere leden pas verlaten na overdracht.
+**Regels:** maximaal 12 actieve leden (gratis versie), een tijdelijke groep verloopt 24 uur na aanmaken (`ExpiresOn`), de join-code heeft 6 tekens zonder `0/O/1/I/L`. Verlaat de enige eigenaar een groep met andere leden, dan wordt het langst aanwezige lid automatisch `Owner`.
 
 #### `GroupMember`
 
@@ -614,6 +614,7 @@ De backend wordt geschreven in **C# (.NET)**. Het datamodel uit [hoofdstuk 13](#
 | Scheduler | Voor de MVP volstaat het pollen van `GameSession.NextTurnAt` (met `FOR UPDATE SKIP LOCKED` in Postgres); een job queue is pas later nodig |
 | Videoopslag | Object storage met signed URLs (zie `Video.StorageKey`), zodat video's de schijf van de VPS niet vullen; aanbieder nog te kiezen |
 | Back-ups | Dagelijkse dump of WAL-archivering van Postgres, opgeslagen buiten de VPS |
+| Verval van permanente groepen | Tijdelijke groepen verlopen al na 24 uur; permanente hebben nu geen vervaldatum. Idee voor later, zodra het project verder is: ook permanente groepen laten verlopen (bijv. bij inactiviteit, met een nieuw veld als `LastActivityOn`) en dat koppelen aan het premium-abonnement (bijv. gratis groepen verlopen, premium-groepen blijven bestaan). Verlopen groepen moeten daarnaast fysiek worden opgeruimd door een job bij de scheduler |
 | Leeftijdscontrole | Minimumleeftijd 18, gecontroleerd op de zelf opgegeven `User.DateOfBirth`. Er is geen verificatie van die opgave; of dat volstaat voor de appstores is nog niet uitgezocht |
 
 ---
