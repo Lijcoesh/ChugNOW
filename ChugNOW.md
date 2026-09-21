@@ -469,7 +469,7 @@ erDiagram
 | `CreatedOn` | | |
 | `UpdatedOn` | | |
 
-**Regels:** maximaal 12 actieve leden (gratis versie), een tijdelijke groep verloopt 24 uur na aanmaken (`ExpiresOn`), de join-code heeft 6 tekens zonder `0/O/1/I/L`. Verlaat de enige eigenaar een groep met andere leden, dan wordt het langst aanwezige lid automatisch `Owner`.
+**Regels:** maximaal 12 actieve leden (gratis versie), een tijdelijke groep verloopt 24 uur na aanmaken (`ExpiresOn`), de join-code heeft 6 tekens zonder `0/O/1/I/L`. Een groep heeft precies één actieve `Owner`. Verlaat die de groep en zijn er andere leden, dan wordt het langst aanwezige lid automatisch `Owner`.
 
 #### `GroupMember`
 
@@ -499,6 +499,8 @@ erDiagram
 | `StartDate` | | |
 | `EndDate?` | | |
 | `CreatedOn` | | |
+
+**Regels:** alleen de `Owner` van de groep start, pauzeert, hervat en beëindigt een sessie. Per groep is er maximaal één sessie die nog niet `Ended` is. `ResponseTimeSeconds` ligt tussen 30 en 600 (standaard 120). Bij starten worden alle actieve groepsleden deelnemer; leden die later joinen worden toegevoegd, en wie de groep verlaat wordt inactief. Een deelnemer kan zichzelf ook op inactief zetten.
 
 #### `SessionParticipant`
 

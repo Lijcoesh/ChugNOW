@@ -17,7 +17,7 @@ React 19 + Vite + TypeScript + MUI. De backend staat in een aparte repo: `../Chu
 - **Imports**: absoluut via `src/*`, relatief binnen dezelfde map, `import type` voor types. Zie @.claude/conventions/imports.md
 - **Theme**: opgesplitst in `src/Theme/` (palette, typography, shadow, sizes, `Components/`), `theme.ts` doet alleen compositie. Zie @.claude/conventions/styling.md
 - **Structuur & naming**: zie @.claude/conventions/structure.md
-- **Commits**: subject begint met een werkwoord in de gebiedende wijs, Engels, geen punt.
+- **Commits**: alleen committen als ik daar expliciet om vraag; laat wijzigingen na afloop van een taak uncommitted staan. Subject begint met een werkwoord in de gebiedende wijs, Engels, geen punt.
   `Add hero section`, `Fix avatar overflow`, `Move colors to src/colors.ts` — niet `Added ...` / `hero section`.
 
 ## Afronding: launch-checklist
