@@ -469,6 +469,8 @@ erDiagram
 | `CreatedOn` | | |
 | `UpdatedOn` | | |
 
+**Regels:** maximaal 12 actieve leden (gratis versie), een tijdelijke groep verloopt 24 uur na aanmaken (`ExpiresOn`), de join-code heeft 6 tekens zonder `0/O/1/I/L`. Een enige eigenaar kan een groep met andere leden pas verlaten na overdracht.
+
 #### `GroupMember`
 
 | Veld | Sleutel / type | Opmerking |
