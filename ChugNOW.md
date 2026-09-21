@@ -340,6 +340,7 @@ Voor een startup is het concept bovendien technisch relatief haalbaar. Een eerst
 ```mermaid
 erDiagram
     USER ||--o{ USER_IDENTITY : "heeft"
+    USER ||--o{ REFRESH_TOKEN : "heeft"
     USER ||--o{ USER_BAN : "wordt verbannen"
     USER ||--o{ DEVICE : "heeft"
     USER ||--o{ USER_BLOCK : "blokkeert"
@@ -367,8 +368,8 @@ erDiagram
 | Veld | Sleutel / type | Opmerking |
 |---|---|---|
 | `Id` | PK | |
-| `Username` | unique | |
-| `Email` | unique | |
+| `Username` | unique | hoofdletterongevoelig (`citext`) |
+| `Email` | unique | hoofdletterongevoelig (`citext`) |
 | `PasswordHash?` | | leeg bij inloggen met Apple/Google |
 | `DateOfBirth` | | |
 | `Role` | enum | User / Moderator / Admin |
@@ -390,6 +391,17 @@ erDiagram
 **Constraints:**
 - `Unique (Provider, ProviderUserId)`
 - `Unique (UserId, Provider)`: max. één Apple- en één Google-koppeling per user
+
+#### `RefreshToken` *(sessies voor JWT-auth, zie [Techstack](#14-techstack))*
+
+| Veld | Sleutel / type | Opmerking |
+|---|---|---|
+| `Id` | PK | |
+| `UserId` | FK → `User` | |
+| `TokenHash` | unique | SHA-256 (hex) van het token; het token zelf wordt nooit opgeslagen |
+| `CreatedOn` | | |
+| `ExpiresOn` | | |
+| `RevokedOn?` | | gevuld bij uitloggen of rotatie; hergebruik van een ingetrokken token trekt alle tokens van de user in |
 
 #### `UserBan`
 
@@ -450,7 +462,7 @@ erDiagram
 |---|---|---|
 | `Id` | PK | |
 | `Name` | | |
-| `Code` | unique | join code |
+| `Code` | unique | join code, hoofdletterongevoelig (`citext`) |
 | `CreatedByUserId` | FK → `User` | |
 | `IsPermanent` | | |
 | `ExpiresOn?` | | only for temporary groups |
@@ -585,6 +597,12 @@ De backend wordt geschreven in **C# (.NET)**. Het datamodel uit [hoofdstuk 13](#
 
 **React 19 + Vite + TypeScript + MUI** (zie `CLAUDE.md` voor de conventies).
 
+### Authenticatie & leeftijd
+
+- **JWT** met korte access tokens (15 min) en roterende **refresh tokens** (30 dagen, opgeslagen als hash in `RefreshToken`). Werkt voor web, PWA en native.
+- Registratie en login met e-mail/wachtwoord (BCrypt); Apple/Google-login volgt via `UserIdentity`.
+- **Minimumleeftijd: 18 jaar**, gecontroleerd bij registratie op `User.DateOfBirth`. Gebruikers met een actieve `UserBan` kunnen niet inloggen of verversen.
+
 ### Nog te bepalen
 
 | Onderwerp | Toelichting |
@@ -594,7 +612,7 @@ De backend wordt geschreven in **C# (.NET)**. Het datamodel uit [hoofdstuk 13](#
 | Scheduler | Voor de MVP volstaat het pollen van `GameSession.NextTurnAt` (met `FOR UPDATE SKIP LOCKED` in Postgres); een job queue is pas later nodig |
 | Videoopslag | Object storage met signed URLs (zie `Video.StorageKey`), zodat video's de schijf van de VPS niet vullen; aanbieder nog te kiezen |
 | Back-ups | Dagelijkse dump of WAL-archivering van Postgres, opgeslagen buiten de VPS |
-| Leeftijdscontrole | `User.DateOfBirth` staat in het model, maar de controle zelf is nog niet uitgewerkt |
+| Leeftijdscontrole | Minimumleeftijd 18, gecontroleerd op de zelf opgegeven `User.DateOfBirth`. Er is geen verificatie van die opgave; of dat volstaat voor de appstores is nog niet uitgezocht |
 
 ---
 
