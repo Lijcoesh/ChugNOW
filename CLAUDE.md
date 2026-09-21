@@ -20,6 +20,12 @@ React 19 + Vite + TypeScript + MUI. De backend staat in een aparte repo: `../Chu
 - **Commits**: subject begint met een werkwoord in de gebiedende wijs, Engels, geen punt.
   `Add hero section`, `Fix avatar overflow`, `Move colors to src/colors.ts` — niet `Added ...` / `hero section`.
 
+## Afronding: launch-checklist
+
+Voordat het project als af wordt gemeld (oplevering, deploy, "klaar"): loop **altijd** de volledige checklist in @.claude/conventions/launch-checklist.md na — juridische pagina's, privacy/cookies, dark patterns, nepreviews en claims, toegankelijkheid, licenties. Controleer in de code, niet uit je hoofd. Meld per sectie wat gedaan, n.v.t. of openstaand is; het project is pas af als alles is opgelost of expliciet als n.v.t. gemotiveerd. Ontbrekende gegevens (bedrijfsdata, juridische tekst) vraag je aan mij — niet verzinnen.
+
+Kom je tijdens het werk iets tegen dat hieronder valt (formulier, externe script, afbeelding, font)? Regel het meteen of noteer het onder "Openstaand" in die file.
+
 ## Conventies bijhouden
 
 Kom je in een gesprek iets tegen dat ook voor later werk geldt — een correctie van mij, een uitgesproken voorkeur, een patroon dat we afspreken, of informatie die je moet onthouden — leg het dan meteen zelf vast, in dezelfde beurt, zonder te vragen:
