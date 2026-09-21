@@ -1,6 +1,6 @@
 # ChugNOW
 
-React 19 + Vite + TypeScript + MUI.
+React 19 + Vite + TypeScript + MUI. De backend staat in een aparte repo: `../ChugNOW.API` (C# / .NET 8, eigen `CLAUDE.md`).
 
 | Commando | Doel |
 |---|---|
