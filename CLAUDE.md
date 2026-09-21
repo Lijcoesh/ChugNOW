@@ -26,6 +26,10 @@ Voordat het project als af wordt gemeld (oplevering, deploy, "klaar"): loop **al
 
 Kom je tijdens het werk iets tegen dat hieronder valt (formulier, externe script, afbeelding, font)? Regel het meteen of noteer het onder "Openstaand" in die file.
 
+## Vragen stellen
+
+Lees `ChugNOW.md` **voordat** je mij een vraag stelt: productbeslissingen staan daar. Stel alleen een vraag als het antwoord er niet in staat.
+
 ## Conventies bijhouden
 
 Kom je in een gesprek iets tegen dat ook voor later werk geldt — een correctie van mij, een uitgesproken voorkeur, een patroon dat we afspreken, of informatie die je moet onthouden — leg het dan meteen zelf vast, in dezelfde beurt, zonder te vragen:
