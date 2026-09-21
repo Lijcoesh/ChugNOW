@@ -21,6 +21,7 @@
 11. [Waardevormen, rompslomp-premie, modulariteit & bundeling](#11-waardevormen-rompslomp-premie-modulariteit--bundeling)
 12. [Conclusie](#12-conclusie)
 13. [Datamodel](#13-datamodel)
+14. [Techstack](#14-techstack)
 
 ---
 
@@ -567,6 +568,33 @@ erDiagram
 | `Report.Reason` | `Inappropriate`, `Harassment`, `Underage`, `Spam`, `Other` |
 | `Report.Status` | `Open`, `InReview`, `Resolved`, `Dismissed` |
 | `Report.Action` | `None`, `ContentRemoved`, `UserWarned`, `UserBanned` |
+
+---
+
+## 14. Techstack
+
+### Backend
+
+De backend wordt geschreven in **C# (.NET)**. Het datamodel uit [hoofdstuk 13](#13-datamodel) is de basis voor het databaseschema; de entiteiten en enums worden daar 1-op-1 op afgestemd.
+
+### Database
+
+**PostgreSQL**, benaderd via **EF Core** (Npgsql-provider).
+
+### Frontend
+
+**React 19 + Vite + TypeScript + MUI** (zie `CLAUDE.md` voor de conventies).
+
+### Nog te bepalen
+
+| Onderwerp | Toelichting |
+|---|---|
+| Hosting | Waarschijnlijk een eigen gehuurde VPS bij TransIP; nog niet definitief |
+| Client voor pushmeldingen en camera | Web, PWA of native; bepaalt de push-aanpak (APNs / FCM) |
+| Scheduler | Voor de MVP volstaat het pollen van `GameSession.NextTurnAt` (met `FOR UPDATE SKIP LOCKED` in Postgres); een job queue is pas later nodig |
+| Videoopslag | Object storage met signed URLs (zie `Video.StorageKey`), zodat video's de schijf van de VPS niet vullen; aanbieder nog te kiezen |
+| Back-ups | Dagelijkse dump of WAL-archivering van Postgres, opgeslagen buiten de VPS |
+| Leeftijdscontrole | `User.DateOfBirth` staat in het model, maar de controle zelf is nog niet uitgewerkt |
 
 ---
 
